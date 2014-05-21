@@ -10,7 +10,8 @@
 		<html>
 		
 			<head>
-			<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"></meta>
+			<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+
 				<title>
 				<xsl:value-of select="//titre"/>
 				<xsl:text> de </xsl:text>
@@ -23,20 +24,38 @@
 			</body>
 		</html>
 	</xsl:template> 	
+	
+	<xsl:template match = "corps">
+	<hr/>
+	<h3>Début du texte </h3>
+	<xsl:apply-templates/>
+	<h3>Fin du texte </h3>
+	<hr/>
 
-
-	<xsl:template match="couverture">
-	<div align="center">
-	<img>
-	<xsl:attribute name="src">
-	<xsl:value-of select="@chemin"/>
-	</xsl:attribute>
-	</img>
-	</div>
 	</xsl:template>
+
 	
-	
-<xsl:template match="image">
+
+	<xsl:template match="en-tete">
+		<table align="center" cellspacing="50" >
+     
+         			<tbody>
+       				<tr>
+    					 <td>
+                         
+      						<xsl:apply-templates select="couverture"/>
+		
+					</td>
+	  				<td>
+					      <xsl:apply-templates select="titre | auteur | info_traitements "/>
+					</td>
+				</tr>
+
+			</tbody>
+     		</table>
+	     </xsl:template>
+     
+     <xsl:template match="image">
 	<div align="center">
 	<img>
 	<xsl:attribute name="src">
@@ -49,7 +68,9 @@
 	<xsl:template match="titre">
 	<h1 style="text-align:center; color:blue;">
 	<xsl:apply-templates/>
-	</h1>
+	
+
+</h1>
 	</xsl:template>
 	
 	<xsl:template match="auteur">
@@ -73,14 +94,48 @@
 	<br/>
 	<xsl:text> Email du responsable: </xsl:text> <xsl:value-of select="email"/>
 	</blockquote>
-	<hr/>
+	
 	</xsl:template>
+
+
+
+	<xsl:template match="couverture">
+	<div align="center">
+	<img>
+	<xsl:attribute name="src">
+	<xsl:value-of select="@chemin"/>
+	</xsl:attribute>
+	</img>
+	
+	</div>
+	</xsl:template>
+	
+	
 	
 	<xsl:template match="paragraphe">
 	
 	<xsl:if test="@type='narration'">
 	<p>
-	<xsl:apply-templates/>
+		<div>
+		<xsl:for-each select="phrase[@langue='francais']">
+			
+				<xsl:if test="contains(string(.),'mouton')">
+				<h2 style=" font-style: bold;"><xsl:value-of select="."/><img src="images/moutonDessin.png"/></h2>
+				</xsl:if>
+				<xsl:if test="contains(string(.),'mouton') = false()">
+				<xsl:value-of select="."/>
+				</xsl:if>
+			
+		</xsl:for-each>
+		
+</div>
+		
+<div>
+		<xsl:for-each select="phrase[@langue='hongrois']">
+			<span style="color :brown; font-style: italic;"><xsl:value-of select="."/></span>
+		</xsl:for-each>
+		
+</div>
 	</p>
 	</xsl:if>
 	
@@ -125,20 +180,7 @@
 	</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="phrase">
-	<xsl:if test="@langue='hongrois'">
-	<div style="color :brown; font-style: italic;"><xsl:value-of select="."/></div>
-	</xsl:if>
-	<xsl:if test="@langue='francais'">
-		<xsl:if test="contains(string(.),'mouton')">
-		<h2 style=" font-style: bold;"><xsl:value-of select="."/><img src="images/moutonDessin.png"/></h2>
-		</xsl:if>
-		<xsl:if test="contains(string(.),'mouton') = false()">
-		<div><xsl:value-of select="."/></div>
-		</xsl:if>
-	</xsl:if>
-	</xsl:template>
-	
 </xsl:stylesheet>
+
 
 

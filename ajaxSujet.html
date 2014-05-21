@@ -35,10 +35,14 @@
           
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
         //remplace le contenu de l'élement html avec l'identifiant "nom" par leNom passé en paramètre
-        function setNom(leNom) {
-          var elementHtmlARemplir = window.document.getElementById("leNomAModifier");
-          elementHtmlARemplir.innerHTML = leNom;
-        }
+        function setNom(leNom, leButton) {
+        var elementHtmlARemplir = window.document.getElementById("body").style.backgroundColor='blue';
+		var boutonAChanger = window.document.getElementById("myButton1").style.color='white';
+         elementHtmlARemplir.innerHTML = leNom;
+		 boutonAChanger.innerHTML = leButton;
+		}
+        
+		
           
           
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -278,7 +282,8 @@
 <p class="instruction">Vous trouverez des informations complémentaires sur le site de w3schools.com sur les méthodes <a href="http://www.w3schools.com/dom/dom_node.asp" onClick="window.open(this.href); return false;">DOM en général</a> et sur les méthodes <a href="http://www.w3schools.com/jsref/dom_obj_document.asp" onClick="window.open(this.href); return false;">DOM spécifique html</a> ainsi que sur le <a href="http://www.w3schools.com/js/default.asp">javascript</a> en g&eacute;n&eacute;ral.</p>
 	
 <p>
-    <input id="myButton1" type="button" value="1. AJAX simple (fn : setNom)" onClick="setNom(document.getElementById('leNoBinomeAInserer').value);" /> <input id="leNoBinomeAInserer" type="text" value="B3000" /><br />
+	<input id="myButton1" type="button" value="1. AJAX simple (fn : setNom)" onClick="setNom(document.getElementById('body'), document.getElementById('myButton1'));" /> <input id="leNoBinomeAInserer" type="text" value="B3150" /><br />
+    <!-- <input id="myButton1" type="button" value="1. AJAX simple (fn : setNom)" onClick="setNom(document.getElementById('leNoBinomeAInserer').value);" /> <input id="leNoBinomeAInserer" type="text" value="B3150" /><br /> -->
     <input id="myButton2" type="button" value="2. AJAX avec DOM sur calendar-short.xml (fn : ajaxCreateurs)" onClick="ajaxCreateurs('fichiersPourAjax/calendar-short.xml');" /><br />
     <input id="myButton3" type="button" value="3. Feuille de style xsl (calendar-binome-date.xsl) sur xml (calendar-short.xml) (fn : ajaxBinomeDate) " onClick="ajaxBinomeDate('fichiersPourAjax/calendar-short.xml','fichiersPourAjax/calendar-binome-date.xsl','ul');" /><br />
     <input id="myButton4" type="button" value="4. Affichage des détails d'un évenement (fn : ajaxDetailsEpisode12Workaholics)" onClick="ajaxDetailsEpisode12Workaholics('fichiersPourAjax/exemple-event-workaholics.json','remplacerCeci');" /><br />
